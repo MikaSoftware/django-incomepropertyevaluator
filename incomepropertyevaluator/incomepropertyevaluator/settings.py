@@ -37,8 +37,9 @@ SECRET_KEY = env('SECRET_KEY') # Raises ImproperlyConfigured exception if SECRET
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG') # False if not in os.environ
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+SITE_ID = 1
 
 # Application definition
 
@@ -49,7 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shared_foundation'
+    'shared_foundation',
+    'shared_api',
+    'shared_authentication',
+    'shared_index'
 ]
 
 MIDDLEWARE = [
@@ -114,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
@@ -123,6 +127,17 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+ugettext = lambda s: s
+LANGUAGES = (
+    ('en', ugettext('English')),
+#    ('fr', ugettext('French')),
+#    ('es', ugettext('Spanish')),
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
+)
 
 
 # Static files (CSS, JavaScript, Images)
