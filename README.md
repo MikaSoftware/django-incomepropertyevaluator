@@ -34,9 +34,10 @@ The web app engine which powers "Income Property Evaluator". http://incomeproper
 3. Run:
 
   ```bash
-  python manage.py migrate
-  python manage.py populate_public
-  python manage.py setup_fixtures
+  python manage.py makemigrations; \
+  python manage.py migrate; \
+  python manage.py populate_public; \
+  python manage.py setup_fixtures;
   ```
 
 4. Usage:

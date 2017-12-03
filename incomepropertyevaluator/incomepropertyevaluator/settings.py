@@ -41,22 +41,65 @@ ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
 
+
 # Application definition
 
-INSTALLED_APPS = [
+# The following configuration forces Django to use the "ISO-8601" standard
+# for the dates.
+DATETIME_FORMAT = 'iso-8601'
+DATETIME_INPUT_FORMATS = 'iso-8601'
+DATE_FORMAT = 'iso-8601'
+DATE_INPUT_FORMATS = 'iso-8601'
+TIME_FORMAT = 'iso-8601'
+TIME_INPUT_FORMATS = 'iso-8601'
+
+# This configuration ensures that all authenticated users from the public
+# schema to exist authenticated in the tenant schemas as well. This is
+# important to have "django-tenants" work
+SESSION_COOKIE_DOMAIN = '.' + env("INCOMEPROPERTYEVALUATOR_APP_HTTP_DOMAIN")
+
+# The following will load up the apps.
+SHARED_APPS = (
+    # Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Extra Django Apps
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+
+    # Third Party Apps
+    'django_tenants',  # (mandatory)
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
+    # 'django_rq', #TODO:IMPL.
+
+     # Apps
     'shared_foundation',
     'shared_api',
     'shared_authentication',
     'shared_index'
-]
+)
+
+TENANT_APPS = (
+    # The following Django contrib apps must be in TENANT_APPS
+    'django.contrib.contenttypes',
+
+    # Tenant-specific apps
+    # ...
+)
+
+INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
+
 
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',       # Third Party
+    'corsheaders.middleware.CorsMiddleware',                     # Third Party
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,6 +107,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',              # Extra Django App
+    'htmlmin.middleware.HtmlMinifyMiddleware',                # Third Party
+    'htmlmin.middleware.MarkRequestMiddleware',               # Third Party
+    # 'shared_foundation.middleware.AcademicsTodayTokenMiddleware',
+    # 'shared_foundation.middleware.AcademicsTodayIPAddressMiddleware'
 ]
 
 ROOT_URLCONF = 'incomepropertyevaluator.urls'
@@ -77,8 +125,10 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',                   # Extra Django App
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'shared_foundation.context_processors.foundation_constants', # Custom App
             ],
         },
     },
@@ -91,9 +141,25 @@ WSGI_APPLICATION = 'incomepropertyevaluator.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db(), # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    # 'extra': env.db('SQLITE_URL', default='sqlite:////tmp/my-tmp-sqlite.db')
+    "default": {
+        'CONN_MAX_AGE': 0,
+        'ENGINE': 'django_tenants.postgresql_backend',
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
+    }
 }
+
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
+
+TENANT_MODEL = "shared_foundation.SharedOrganization"
+
+TENANT_DOMAIN_MODEL = "shared_foundation.SharedOrganizationDomain"
+
 
 
 # Password validation
