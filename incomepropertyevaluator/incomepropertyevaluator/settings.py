@@ -77,7 +77,7 @@ SHARED_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
-    # 'django_rq', #TODO:IMPL.
+    'django_rq',
 
      # Apps
     'shared_foundation',
@@ -205,6 +205,24 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, "locale"),
 )
 
+# Email
+# https://docs.djangoproject.com/en/1.11/topics/email/
+
+EMAIL_BACKEND = env("EMAIL_BACKEND")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+DEFAULT_TO_EMAIL = env("DEFAULT_TO_EMAIL")
+
+
+# # Anymail
+# #  https://github.com/anymail/django-anymail
+#
+# ANYMAIL = {
+#     # (exact settings here depend on your ESP...)
+#     "MAILGUN_API_KEY": env_var("MAILGUN_ACCESS_KEY"),
+#     "MAILGUN_SENDER_DOMAIN": env_var("MAILGUN_SERVER_NAME"),
+# }
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -222,7 +240,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/dev/topics/auth/customizing/
 
 AUTHENTICATION_BACKENDS = (
-    'shared_foundation.backends.UserModelEmailBackend', # Support email as username.
+    'shared_authentication.backends.UserModelEmailBackend', # Support email as username.
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -244,8 +262,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',
-        # 'rest_framework.parsers.FormParser',
-        # 'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
     ),
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'PAGE_SIZE': 100
@@ -261,7 +279,7 @@ CORS_ORIGIN_ALLOW_ALL=True
 # django-rq
 # https://github.com/ui/django-rq
 
-RQ_QUEUES = {
+RQ_QUEUES = { #TODO: 12Factorize.
     'default': {
         'HOST': 'localhost',
         'PORT': 6379,
@@ -273,6 +291,7 @@ RQ_QUEUES = {
 #     'default': env.cache(),
 #     'redis': env.cache('REDIS_URL')
 # }
+
 
 # django-htmlmin
 # https://github.com/cobrateam/django-htmlmin
