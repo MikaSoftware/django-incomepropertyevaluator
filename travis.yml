@@ -1,0 +1,29 @@
+language: python
+
+python:
+  - 3.5
+
+addons:
+  - postgresql: "9.6"
+
+install:
+  - pip install -r requirements.txt
+  - pip install coverage
+  - pip install coveralls
+
+before_script:
+  - psql -c "CREATE USER django WITH PASSWORD '123password';" -U postgres
+  - psql -c "CREATE DATABASE incomepropertyevaluator_db;" -U postgres
+  - psql -c "GRANT ALL PRIVILEGES ON DATABASE incomepropertyevaluator_db to django;" -U postgres
+  - psql -c "ALTER USER django CREATEDB;" -U postgres
+  - psql -c "ALTER ROLE django SUPERUSER;" -U postgres
+  - psql -c "CREATE EXTENSION postgis;" -U postgres
+  - python incomepropertyevaluator/manage.py migrate --noinput
+
+env:
+  - DJANGO=1.11.8
+
+script: coverage run --source=incomepropertyevaluator manage.py test
+
+after_success:
+  coveralls
