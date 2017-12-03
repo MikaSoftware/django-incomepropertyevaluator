@@ -33,26 +33,3 @@ class IncomePropertyEvaluatorTokenMiddleware(object):
         # (Do Nothing ...)
 
         return response  # Finish our middleware handler.
-
-
-class IncomePropertyEvaluatorIPAddressMiddleware(object):
-    """
-        Utility middleware for getting the IP. Source: http://stackoverflow.com/a/4581997
-    """
-
-    def __init__(self, get_response):
-        self.get_response = get_response
-        # One-time configuration and initialization.
-
-    def __call__(self, request):
-        from ipware.ip import get_ip
-        ip = get_ip(request)
-        if ip is not None:
-            # we have an ip address for user
-            request.ip_address = ip
-        else:
-            # we don't have an ip address for user
-            request.ip_address = ip
-
-        # Run the view.
-        return self.get_response(request)

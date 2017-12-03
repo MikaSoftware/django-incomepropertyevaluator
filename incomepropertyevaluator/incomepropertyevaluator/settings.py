@@ -113,7 +113,6 @@ MIDDLEWARE = [
     'htmlmin.middleware.HtmlMinifyMiddleware',                # Third Party
     'htmlmin.middleware.MarkRequestMiddleware',               # Third Party
     'shared_foundation.middleware.IncomePropertyEvaluatorTokenMiddleware',
-    'shared_foundation.middleware.IncomePropertyEvaluatorIPAddressMiddleware'
 ]
 
 ROOT_URLCONF = 'incomepropertyevaluator.urls'
