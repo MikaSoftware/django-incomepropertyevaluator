@@ -3,6 +3,8 @@ language: python
 python:
   - 3.6
 
+services: postgresql
+
 addons:
   - postgresql: "9.6"
 
@@ -15,6 +17,7 @@ install:
   - pip install coveralls
 
 env:
+  - DJANGO=1.11.8
   - ALLOWED_HOSTS='*'
   - ADMIN_NAME='Bartlomiej Mika'
   - ADMIN_EMAIL=bart@mikasoftware.com
@@ -41,8 +44,9 @@ before_script:
   - psql -c "ALTER ROLE django SUPERUSER;" -U postgres
   - python incomepropertyevaluator/manage.py migrate --noinput
 
-env:
-  - DJANGO=1.11.8
+branches:
+  only:
+  - master
 
 script: coverage run --source=incomepropertyevaluator manage.py test
 
