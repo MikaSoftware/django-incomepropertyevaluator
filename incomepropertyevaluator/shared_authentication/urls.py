@@ -15,6 +15,10 @@ urlpatterns = (
     web_views.user_login_master_page,
     name='at_login_master'),
 
+    url(r'^sign-in-redirect$',
+    web_views.user_login_redirect,
+    name='mika_login_redirect'),
+
     url(r'^register/$',
     web_views.register_master_page,
     name='at_register_master'),

@@ -31,7 +31,7 @@
             function(was_successful) {
                 if (was_successful) {
                     // Load up our dashboard.
-                    window.location = "{% get_app_domain %}"; //TODO: IMPL.
+                    window.location = "{% get_app_domain %}{% url 'mika_login_redirect' %}";
                 } else {
                     alert("Failed logging in, did not receive token.");
                 }

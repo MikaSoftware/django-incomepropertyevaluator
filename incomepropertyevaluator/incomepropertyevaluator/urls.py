@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url('^', include('django.contrib.auth.urls')),
-    # url(r'^', include('shared_api.urls')),
+    url(r'^', include('shared_api.urls')),
 
      # Sitemap
     # url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
@@ -48,7 +48,7 @@ urlpatterns += i18n_patterns(
     # url(r'^', include('shared_university.urls')),
     # url(r'^', include('shared_course.urls')),
     # url(r'^', include('tenant_api.urls')),
-    # url(r'^', include('tenant_dashboard.urls')),
+    url(r'^', include('tenant_dashboard.urls')),
     # url(r'^', include('tenant_registrar.urls')),
     # url(r'^', include('tenant_teacher.urls')),
     prefix_default_language=False
