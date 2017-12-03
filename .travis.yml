@@ -14,7 +14,27 @@ install:
   - pip install coverage
   - pip install coveralls
 
+env:
+  - ALLOWED_HOSTS='*'
+  - ADMIN_NAME='Bartlomiej Mika'
+  - ADMIN_EMAIL=bart@mikasoftware.com
+  - DEBUG=on
+  - SECRET_KEY=zh6()(p_mcx^caqy7sj(pj0c530q=f4o!!%db4=alya^l)3)x(
+  - DB_NAME=incomepropertyevaluator_db
+  - DB_USER=django
+  - DB_PASSWORD=123password
+  - DB_HOST=localhost
+  - DB_PORT="5432"
+  - DEFAULT_TO_EMAIL=bart@mikasoftware.com
+  - DEFAULT_FROM_EMAIL=postmaster@mikasoftware.com
+  - EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+  - HTML_MINIFY=True
+  - KEEP_COMMENTS_ON_MINIFYING=False
+  - INCOMEPROPERTYEVALUATOR_APP_HTTP_PROTOCOL=http://
+  - INCOMEPROPERTYEVALUATOR_APP_HTTP_DOMAIN=incomepropertyevaluator.com
+
 before_script:
+  - psql -U postgres -c "create extension postgis"
   - psql -c "CREATE USER django WITH PASSWORD '123password';" -U postgres
   - psql -c "CREATE DATABASE incomepropertyevaluator_db;" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE incomepropertyevaluator_db to django;" -U postgres
