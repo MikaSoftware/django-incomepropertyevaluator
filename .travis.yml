@@ -34,7 +34,6 @@ env:
   - INCOMEPROPERTYEVALUATOR_APP_HTTP_DOMAIN=incomepropertyevaluator.com
 
 before_script:
-  - psql -U postgres -c "create extension postgis"
   - psql -c "CREATE USER django WITH PASSWORD '123password';" -U postgres
   - psql -c "CREATE DATABASE incomepropertyevaluator_db;" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE incomepropertyevaluator_db to django;" -U postgres
