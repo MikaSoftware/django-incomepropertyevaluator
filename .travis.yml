@@ -15,13 +15,11 @@ install:
   - pip install coveralls
 
 before_script:
-  - psql -c "create extension postgis" -U postgres
   - psql -c "CREATE USER django WITH PASSWORD '123password';" -U postgres
   - psql -c "CREATE DATABASE incomepropertyevaluator_db;" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE incomepropertyevaluator_db to django;" -U postgres
   - psql -c "ALTER USER django CREATEDB;" -U postgres
   - psql -c "ALTER ROLE django SUPERUSER;" -U postgres
-  - psql -c "CREATE EXTENSION postgis;" -U postgres
   - python incomepropertyevaluator/manage.py migrate --noinput
 
 env:
