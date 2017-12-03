@@ -8,7 +8,7 @@ urlpatterns = (
     # EMAIL
     url(r'^activate/(.*)/email/$',
     email_views.user_activation_email_page,
-    name='at_register_user_activation_email_master'),
+    name='at_user_activation_email_master'),
 
     # WEB
     url(r'^sign-in$',
@@ -16,14 +16,14 @@ urlpatterns = (
     name='at_login_master'),
 
     url(r'^register/$',
-    web_views.register_user_master_page,
+    web_views.register_master_page,
     name='at_register_master'),
 
     url(r'^register/done$',
-    web_views.register_user_detail_page,
+    web_views.register_detail_page,
     name='at_register_detail'),
 
     url(r'^activate/(.*)/$',
     web_views.user_activation_detail_page,
-    name='at_register_user_activation_detail'),
+    name='at_user_activation_detail'),
 )

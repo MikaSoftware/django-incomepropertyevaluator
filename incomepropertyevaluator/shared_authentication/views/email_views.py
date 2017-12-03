@@ -17,11 +17,11 @@ def user_activation_email_page(request, pr_access_code=""):
     Email web-view of the welcome customer.
     """
     url = utils.reverse_with_full_domain(
-        reverse_url_id='at_register_user_activation_detail',
+        reverse_url_id='at_user_activation_detail',
         resolve_url_args=[pr_access_code]
     )
     web_view_extra_url = utils.reverse_with_full_domain(
-        reverse_url_id='at_register_user_activation_email_master',
+        reverse_url_id='at_user_activation_email_master',
         resolve_url_args=[pr_access_code]
     )
     return render(request, 'shared_authentication/email/user_activation_email_view.html',{

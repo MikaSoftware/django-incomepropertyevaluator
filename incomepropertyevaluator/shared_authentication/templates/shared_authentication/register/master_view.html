@@ -42,11 +42,14 @@
     {
         // Populate our data.
         var data = {
-            'first_name':        $('#id_first_name').val(),
-            'last_name':         $('#id_last_name').val(),
-            'email':             $('#id_email').val().toLowerCase(),
-            'password':          $('#id_password').val(),
-            'password_repeated': $('#id_password_repeated').val(),
+            'first_name':             $('#id_first_name').val(),
+            'last_name':              $('#id_last_name').val(),
+            'email':                  $('#id_email').val().toLowerCase(),
+            'password':               $('#id_password').val(),
+            'password_repeated':      $('#id_password_repeated').val(),
+            'company_name':           $('#id_password_repeated').val(),
+            'company_alternate_name': $('#id_company_alternate_name').val(),
+            'company_schema_name':    $('#id_company_schema_name').val(),
         }
 
         console.log(data);
@@ -100,6 +103,17 @@
                             <div class="form-group">
                                 <input class="form-control" placeholder="{% trans 'Repeat Password' %}" name="repeat_password" type="password" value="" id="id_password_repeated" autocapitalize="off" />
                             </div>
+
+                            <div class="form-group">
+                                <input class="form-control" placeholder="{% trans 'Company Name' %}" name="company_name" type="text" autofocus id="id_company_name" autocapitalize="off" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="{% trans 'Company Alternate Name' %}" name="company_alternate_name" type="text" autofocus id="id_company_alternate_name" autocapitalize="off" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="{% trans 'Company Schema' %}" name="company_schema_name" type="text" autofocus id="id_company_schema_name" autocapitalize="off" />
+                            </div>
+
                             <div class="checkbox">
                                 <label>
                                     <input name="remember" type="checkbox" value="Remember Me">{% trans 'I agree to the terms.' %}

@@ -104,43 +104,11 @@
      */
     function api_post_register(data, func_callback, func_error_callback)
     {
-        var url = get_base_domain_url("/api/register/user/?format=json");
+        var url = get_base_domain_url("/api/register?format=json");
         var type = "POST"; // Insert.
 
         jQuery.ajax({
             url: url,
-            data: data,
-            type: 'POST',
-            traditional: true, // Note: This allows many-to-many arrays for Django REST Framework
-            success: function(json_results){
-                func_callback(json_results);
-            },
-            error: function(xhr, status, error) {
-                func_error_callback(xhr, status, error);
-            },
-            complete: function(xhr,status) {
-                // Do nothing.
-            }
-        });
-    }
-
-    /**
-     * data - name, alternate_name
-     */
-    function api_post_register_university(data, func_callback, func_error_callback)
-    {
-        // Fetch our existing API token.
-        var private_api_key = "{{ request.token }}";
-
-        // Our URL to the API endpoint.
-        var url = get_base_domain_url("/api/register/university/?format=json");
-        var type = "POST"; // Insert.
-
-        jQuery.ajax({
-            url: url,
-            headers: {
-                Authorization: 'Token ' + private_api_key
-            },
             data: data,
             type: 'POST',
             traditional: true, // Note: This allows many-to-many arrays for Django REST Framework

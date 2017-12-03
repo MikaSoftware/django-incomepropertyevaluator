@@ -7,12 +7,12 @@ from shared_foundation import models
 from shared_foundation import utils
 
 
-def register_user_master_page(request):
-    return render(request, 'shared_authentication/register_user/master_view.html',{})
+def register_master_page(request):
+    return render(request, 'shared_authentication/register/master_view.html',{})
 
 
-def register_user_detail_page(request):
-    return render(request, 'shared_authentication/register_user/detail_view.html',{})
+def register_detail_page(request):
+    return render(request, 'shared_authentication/register/detail_view.html',{})
 
 
 def user_activation_detail_page(request, pr_access_code):

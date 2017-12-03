@@ -35,6 +35,21 @@ class RegisterUserSerializer(serializers.Serializer):
         max_length=64,
         trim_whitespace=True
     )
+    company_schema_name = serializers.CharField(
+        allow_blank=False,
+        max_length=255,
+        trim_whitespace=True
+    )
+    company_name = serializers.CharField(
+        allow_blank=False,
+        max_length=255,
+        trim_whitespace=True
+    )
+    company_alternate_name = serializers.CharField(
+        allow_blank=False,
+        max_length=255,
+        trim_whitespace=True
+    )
 
     def validate(self, attrs):
         password = attrs.get('password')
@@ -42,5 +57,10 @@ class RegisterUserSerializer(serializers.Serializer):
 
         if password != password_repeated:
             raise serializers.ValidationError("Passwords do not match.")
+
+        schema_name = attrs.get('company_schema_name')
+
+        if models.SharedOrganization.objects.filter(schema_name=schema_name).exists():
+            raise serializers.ValidationError(_("Schema_name is not unique."))
 
         return attrs
