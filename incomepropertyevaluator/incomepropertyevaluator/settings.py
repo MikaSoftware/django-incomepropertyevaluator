@@ -210,7 +210,75 @@ LOCALE_PATHS = (
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+
+# Custom authentication
+# https://docs.djangoproject.com/en/dev/topics/auth/customizing/
+
+AUTHENTICATION_BACKENDS = (
+    'shared_foundation.backends.UserModelEmailBackend', # Support email as username.
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
+# Django-REST-Framework
+# https://github.com/encode/django-rest-framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',  # NOTE: https://django-filter.readthedocs.io/en/develop/guide/rest_framework.html
+    ),
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        # 'rest_framework.renderers.AdminRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer'
+    ],
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        # 'rest_framework.parsers.FormParser',
+        # 'rest_framework.parsers.MultiPartParser',
+    ),
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 100
+}
+
+
+# django-cors-headers
+# https://github.com/ottoyiu/django-cors-headers
+
+CORS_ORIGIN_ALLOW_ALL=True
+
+
+# django-rq
+# https://github.com/ui/django-rq
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 360,
+    }
+}
+# CACHES = {
+#     'default': env.cache(),
+#     'redis': env.cache('REDIS_URL')
+# }
+
+# django-htmlmin
+# https://github.com/cobrateam/django-htmlmin
+
+HTML_MINIFY = env("HTML_MINIFY")
+KEEP_COMMENTS_ON_MINIFYING = env("KEEP_COMMENTS_ON_MINIFYING")
 
 
 '''

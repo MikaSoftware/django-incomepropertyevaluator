@@ -40,10 +40,10 @@ urlpatterns = [
 
 
 urlpatterns += i18n_patterns(
-    # url(r'^', include('shared_api.urls')),
-    # url(r'^', include('shared_authentication.urls')),
+    url(r'^', include('shared_api.urls')),
+    url(r'^', include('shared_authentication.urls')),
     # url(r'^', include('shared_dashboard.urls')),
-    # url(r'^', include('shared_foundation.urls')),
+    url(r'^', include('shared_foundation.urls')),
     url(r'^', include('shared_index.urls')),
     # url(r'^', include('shared_university.urls')),
     # url(r'^', include('shared_course.urls')),
