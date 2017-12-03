@@ -15,6 +15,7 @@ install:
   - pip install coveralls
 
 before_script:
+  - psql -c "create extension postgis" -U postgres
   - psql -c "CREATE USER django WITH PASSWORD '123password';" -U postgres
   - psql -c "CREATE DATABASE incomepropertyevaluator_db;" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE incomepropertyevaluator_db to django;" -U postgres
