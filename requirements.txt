@@ -24,9 +24,7 @@ olefile==0.44
 Pillow==4.3.0
 pisa==3.0.33
 psycopg2==2.7.3.2
-py-incomepropertyevaluatorkit==0.0.1
 py-moneyed==0.7.0
-py-mortgagekit==1.0.3b1
 PyPDF2==1.26.0
 python-dateutil==2.6.1
 pytz==2017.3

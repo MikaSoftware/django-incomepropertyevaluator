@@ -23,6 +23,8 @@ The web app engine which powers "Income Property Evaluator". http://incomeproper
   ```bash
   pip install -r requirements.txt
   pip install "git+https://github.com/MikaSoftware/django-trapdoor"
+  pip install "git+https://github.com/MikaSoftware/py-mortgagekit"
+  pip install "git+https://github.com/MikaSoftware/py-incomepropertyevaluatorkit"
   ```
 
 2. Update.
