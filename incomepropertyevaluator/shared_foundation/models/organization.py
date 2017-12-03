@@ -1,4 +1,6 @@
 from django.contrib.auth.models import User
+from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django_tenants.models import TenantMixin, DomainMixin
@@ -30,6 +32,17 @@ class SharedOrganization(TenantMixin, AbstractSharedThing):
         blank=True,
         related_name="%(app_label)s_%(class)s_administrators_related"
     )
+
+    def get_tenant_url(self, url_id, url_args=None):
+        """
+        Function returns the full URL (with sub-domain included) of the
+        resolved ID and parameters.
+        """
+        url = settings.INCOMEPROPERTYEVALUATOR_APP_HTTP_PROTOCOL
+        url += settings.INCOMEPROPERTYEVALUATOR_APP_HTTP_DOMAIN
+        url += reverse(url_id, args=url_args)
+        url = url.replace("None","en")
+        return url
 
 class SharedOrganizationDomain(DomainMixin):
     class Meta:
