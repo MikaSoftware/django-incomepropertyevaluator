@@ -8,6 +8,7 @@ addons:
 
 install:
   - pip install -r requirements.txt
+  - pip install "git+https://github.com/MikaSoftware/django-trapdoor"
   - pip install coverage
   - pip install coveralls
 

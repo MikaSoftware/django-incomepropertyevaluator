@@ -18,6 +18,13 @@ The web app engine which powers "Income Property Evaluator". http://incomeproper
   git clone https://github.com/MikaSoftware/django-incomepropertyevaluator.git
   ```
 
+1b. Installation
+
+  ```bash
+  pip install -r requirements.txt
+  pip install "git+https://github.com/MikaSoftware/django-trapdoor"
+  ```
+
 2. Update.
 
   ```sql
