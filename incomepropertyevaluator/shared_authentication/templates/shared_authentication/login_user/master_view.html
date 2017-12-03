@@ -11,12 +11,6 @@
                 $("#id_login_btn").click();
             }
         });
-
-        var token = "{{ request.token }}";
-        if (token != "" && token != undefined) {
-            window.location = "{% get_app_domain %}";
-        }
-
     }); // end Document Start
 
     /**

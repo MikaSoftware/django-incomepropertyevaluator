@@ -78,6 +78,7 @@ SHARED_APPS = (
     'rest_framework.authtoken',
     'django_filters',
     'django_rq',
+    'trapdoor',
 
      # Apps
     'shared_foundation',
@@ -100,6 +101,7 @@ INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in S
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',       # Third Party
     'corsheaders.middleware.CorsMiddleware',                     # Third Party
+    'trapdoor.middleware.TrapdoorMiddleware',                    # Third Party
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -110,8 +112,8 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',              # Extra Django App
     'htmlmin.middleware.HtmlMinifyMiddleware',                # Third Party
     'htmlmin.middleware.MarkRequestMiddleware',               # Third Party
-    # 'shared_foundation.middleware.AcademicsTodayTokenMiddleware',
-    # 'shared_foundation.middleware.AcademicsTodayIPAddressMiddleware'
+    'shared_foundation.middleware.IncomePropertyEvaluatorTokenMiddleware',
+    'shared_foundation.middleware.IncomePropertyEvaluatorIPAddressMiddleware'
 ]
 
 ROOT_URLCONF = 'incomepropertyevaluator.urls'
