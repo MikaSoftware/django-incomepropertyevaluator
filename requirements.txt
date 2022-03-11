@@ -21,7 +21,7 @@ httplib2==0.10.3
 idna==2.6
 numpy==1.13.3
 olefile==0.44
-Pillow==4.3.0
+Pillow==9.0.1
 pisa==3.0.33
 psycopg2==2.7.3.2
 py-moneyed==0.7.0
