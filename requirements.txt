@@ -19,7 +19,7 @@ gunicorn==19.7.1
 html5lib==1.0b10
 httplib2==0.10.3
 idna==2.6
-numpy==1.13.3
+numpy==1.22.0
 olefile==0.44
 Pillow==4.3.0
 pisa==3.0.33
